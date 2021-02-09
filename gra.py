@@ -43,7 +43,7 @@ def plansza(zycie):
 
 def walidacja_ruchu(x, y, mapa_1, zycie):
     if mapa_1[x][y] == " ":
-        return "dozwolony"
+        return "dozwolony", zycie
 
     elif x == 1 and y == 5:
         mapa_1, zycie = dialog_1(mapa_1, plecak_bohatera, zycie)
@@ -54,15 +54,15 @@ def walidacja_ruchu(x, y, mapa_1, zycie):
 
     elif x == 28 and y == 2:
         plecak_bohatera.append("ksiega_czarow")
-        return "dozwolony"
+        return "dozwolony", zycie
 
     elif mapa_1[x][y] == "P":
         plecak_bohatera.append("zardzewialy_klucz")
-        return "dozwolony"
+        return "dozwolony", zycie
 
     else:
         print("ruch niedozwolony")
-        return "niedozwolony"
+        return "niedozwolony", zycie
 
 
 def dodanie_przedmiotu(mapa_1):

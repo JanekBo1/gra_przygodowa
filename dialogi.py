@@ -16,5 +16,5 @@ def dialog_2(plecak_bohatera):
     else:
         print("jeśli szukasz czegoś cennego to w tamtym pokoju jest księga, możesz ją sobie wziąść")
 
-def dialog_3()
-print("1")
+def dialog_3():
+    print("1")
