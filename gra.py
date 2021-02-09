@@ -1,6 +1,8 @@
 from plansze import *
 from dialogi import *
 from przedmioty import *
+import os, sys
+from save import *
 
 plecak_bohatera = ["zwykly_miecz", "zwykly_lok"]
 zycie = ["=", "="]
@@ -70,6 +72,21 @@ def dodanie_przedmiotu(mapa_1):
     mapa_1[28][15] = "N"
     return mapa_1
 
+def save(mapa_1):
+    with open(f"save.py", "w") as f:
+        wiersz1 = f"zapis = {str(mapa_1)}"
+        wiersz2 = f"zapisany_x = {x}"
+        wiersz3 = f"zapisany_y = {y}"
+        wiersz4 = f"zapisany_plecak_bohatera = {plecak_bohatera}"
+        f.write(f"{wiersz1}\n{wiersz2}\n{wiersz3}\n{wiersz4}")
+
+def load(zapis, zapisany_x, zapisany_y, zapisany_plecak_bohatera):
+    mapa_1 = zapis
+    x = zapisany_x
+    y = zapisany_y
+    plecak_bohatera = zapisany_plecak_bohatera
+    return mapa_1, x, y, plecak_bohatera
+
 #main
 
 mapa_1 = dodanie_przedmiotu(mapa_1)
@@ -110,6 +127,13 @@ while True:
             mapa_1[x][y] = "X"
     elif ruch == "i":
         pokaz_przedmioty(plecak_bohatera)
+
+    elif ruch =="save":
+        save(mapa_1)  
+        print("mapa została zapisana") 
+
+    elif ruch =="load":
+        mapa_1, x, y, plecak_bohatera = load(zapis, zapisany_x, zapisany_y, zapisany_plecak_bohatera)   
 
     elif ruch =="exit":
         exit(0)
