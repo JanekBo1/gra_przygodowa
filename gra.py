@@ -2,7 +2,9 @@ from plansze import *
 from dialogi import *
 from przedmioty import *
 import os, sys
-from save import *
+from save.save1 import *
+from save.save2 import *
+from save.save3 import *
 
 plecak_bohatera = ["zwykly_miecz", "zwykly_lok"]
 zycie = ["=", "="]
@@ -73,18 +75,43 @@ def dodanie_przedmiotu(mapa_1):
     return mapa_1
 
 def save(mapa_1):
-    with open(f"save.py", "w") as f:
-        wiersz1 = f"zapis = {str(mapa_1)}"
-        wiersz2 = f"zapisany_x = {x}"
-        wiersz3 = f"zapisany_y = {y}"
-        wiersz4 = f"zapisany_plecak_bohatera = {plecak_bohatera}"
-        f.write(f"{wiersz1}\n{wiersz2}\n{wiersz3}\n{wiersz4}")
+    save_slot = input("Na jakim slocie zapisać grę (od 1 do 3)")
+    if save_slot.isnumeric() is True and 1 <= int(save_slot) <=3:
+        with open(f"save/save{save_slot}.py", "w") as f:
+            wiersz1 = f"zapis{save_slot} = {str(mapa_1)}"
+            wiersz2 = f"zapisany_x{save_slot} = {x}"
+            wiersz3 = f"zapisany_y{save_slot} = {y}"
+            wiersz4 = f"zapisany_plecak_bohatera{save_slot} = {plecak_bohatera}"
+            f.write(f"{wiersz1}\n{wiersz2}\n{wiersz3}\n{wiersz4}")
+        print(f"gra została zapisana na slocie {save_slot}")
+    else:
+        print("błąd w zapisie")
 
-def load(zapis, zapisany_x, zapisany_y, zapisany_plecak_bohatera):
-    mapa_1 = zapis
-    x = zapisany_x
-    y = zapisany_y
-    plecak_bohatera = zapisany_plecak_bohatera
+
+def load():
+    load_save_slot = input("z jakiego slota wczytać grę (podaj cyfrę od 1 do 3)")
+    if load_save_slot.isnumeric() is True and 1 <= int(load_save_slot) <= 3:
+        if int(load_save_slot) == 1:
+            mapa_1 = zapis1
+            x = zapisany_x1
+            y = zapisany_y1
+            plecak_bohatera = zapisany_plecak_bohatera1
+
+        elif int(load_save_slot) == 2:
+            mapa_1 = zapis2
+            x = zapisany_x2
+            y = zapisany_y2
+            plecak_bohatera = zapisany_plecak_bohatera2
+
+        elif int(load_save_slot) == 3:
+            mapa_1 = zapis3
+            x = zapisany_x3
+            y = zapisany_y3
+            plecak_bohatera = zapisany_plecak_bohatera3
+
+    else:
+        print("Błąd w załadowaniu") 
+           
     return mapa_1, x, y, plecak_bohatera
 
 #main
@@ -130,10 +157,10 @@ while True:
 
     elif ruch =="save":
         save(mapa_1)  
-        print("mapa została zapisana") 
+         
 
     elif ruch =="load":
-        mapa_1, x, y, plecak_bohatera = load(zapis, zapisany_x, zapisany_y, zapisany_plecak_bohatera)   
+        mapa_1, x, y, plecak_bohatera = load()   
 
     elif ruch =="exit":
         exit(0)
